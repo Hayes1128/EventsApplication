@@ -1,0 +1,33 @@
+﻿@model IEnumerable<EventsApplication.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<!--Saved old index in D:/Temp-->
+<div class="container">
+    @foreach (var item in Model)
+    {
+    <div class="row">
+        <div class="col-3">
+            <img src="~/css/Images/EventIconTest.png" alt="Alternate Text" width="100" height="100"/>
+        </div>
+        <div class="col-3">
+            @Html.DisplayFor(modelItem => item.Title)
+        </div>
+        <div class="col-3">
+            @Html.DisplayFor(modelItem => item.Description)
+        </div>
+        <div class="col-3">
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </div>
+
+    </div>
+    }
+</div>
