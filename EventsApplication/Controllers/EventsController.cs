@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventsApplication.Data;
 using EventsApplication.Models;
+using System.Diagnostics;
 
 namespace EventsApplication.Controllers
 {
@@ -20,9 +21,34 @@ namespace EventsApplication.Controllers
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string eventType, string searchString)
         {
-            return View(await _context.Event.ToListAsync());
+            // Use LINQ to get list of genres.
+            IQueryable<string> typeQuery = from e in _context.Event
+                                            orderby e.Type
+                                            select e.Type;
+
+            var Events = from e in _context.Event select e;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Events = Events.Where(s => s.Owner.Contains(searchString));
+                
+               
+            }
+
+            if (!string.IsNullOrEmpty(eventType))
+            {
+                Events = Events.Where(x => x.Type == eventType);
+            }
+
+            var eventTypeVM = new EventTypeViewModel
+            {
+                Types = new SelectList(await typeQuery.Distinct().ToListAsync()),
+                Events = await Events.ToListAsync()
+            };
+
+            return View(eventTypeVM);
         }
 
         // GET: Events/Details/5

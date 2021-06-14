@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EventsApplication.Models.Event>
+﻿@model EventsApplication.Models.EventTypeViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -8,10 +8,22 @@
     <div class="col-2"><p><a asp-action="Create">Create New</a></p></div>
 </div>
 <br />
+<form asp-controller="Events" asp-action="Index" method="get">
+    <p>
+
+        <select asp-for="EventType" asp-items="Model.Types">
+            <option value="">All</option>
+        </select>
+
+        Owner: <input type="text" name="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<br />
 
 <!--Saved old index in D:/Temp-->
 <div class="container">
-    @foreach (var item in Model)
+    @foreach (var item in Model.Events)
     {
     <div class="row">
         <div class="col-3">
