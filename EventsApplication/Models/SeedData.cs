@@ -28,7 +28,9 @@ namespace EventsApplication.Models
                         Type = "Music",
                         Description = "This is a music concert etc, more information provided soon",
                         Price = 7.99M,
-                        Owner = "Some Band"
+                        Owner = "Some Band",
+                        filename = "Queen.jpg"
+
                     },
 
                     new Event
@@ -38,7 +40,8 @@ namespace EventsApplication.Models
                         Type = "Art",
                         Description = "This is an art exhibition etc, more information provided soon",
                         Price = 11.99M,
-                        Owner = "Some Artist"
+                        Owner = "Some Artist",
+                        filename = "Art.jpg"
                     },
 
                     new Event
@@ -48,7 +51,8 @@ namespace EventsApplication.Models
                         Type = "Food and Drink",
                         Description = "This is a food festival etc, more information provided soon",
                         Price = 23.99M,
-                        Owner = "Some Company or chef"
+                        Owner = "Some Company or chef",
+                        filename = "Food.jpg"
                     },
 
                     new Event
@@ -58,7 +62,8 @@ namespace EventsApplication.Models
                         Type = "Academia",
                         Description = "This is an academic lecture etc, more information provided soon",
                         Price = 0.00M,
-                        Owner = "Some Scientist"
+                        Owner = "Some Scientist",
+                        filename = "Lecture.jpg"
                     }
                 );
                 context.SaveChanges();

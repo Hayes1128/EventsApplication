@@ -54,7 +54,7 @@ namespace EventsApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Type,Description,Price,Owner")] Event @event)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Type,Description,Price,Owner,filename")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace EventsApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Type,Description,Price,Owner")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Type,Description,Price,Owner,filename")] Event @event)
         {
             if (id != @event.Id)
             {

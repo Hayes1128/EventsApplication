@@ -22,6 +22,8 @@ namespace EventsApplication.Models
         //if it is a person/band/artist etc.
         public string Owner { get; set; }
 
+        public string filename { get; set; } 
+
 
     }
 }
