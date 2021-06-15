@@ -8,17 +8,30 @@ using Microsoft.EntityFrameworkCore;
 using EventsApplication.Data;
 using EventsApplication.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using EventsApplication.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace EventsApplication.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly EventsApplicationContext _context;
+        private readonly AuthDbContext _AuthContext;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<EventsApplicationUser> _userManager;
 
-        public EventsController(EventsApplicationContext context)
+
+        public EventsController(EventsApplicationContext context, AuthDbContext context2, Microsoft.AspNetCore.Identity.UserManager<EventsApplicationUser> userManager)
         {
             _context = context;
+            _AuthContext = context2;
+            _userManager = userManager;
         }
+        protected Microsoft.AspNetCore.Identity.UserManager<EventsApplicationUser> UserManager { get; set; }
 
         // GET: Events
         public async Task<IActionResult> Index(string eventType, string searchString)
@@ -70,9 +83,20 @@ namespace EventsApplication.Controllers
         }
 
         // GET: Events/Create
-        public IActionResult Create()
+
+        public async Task<IActionResult> CreateAsync()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            string Type = user.UserType;
+            if (Type == "Admin")
+            {
+                return View();
+            }
+            else
+            {
+                
+                return Redirect("/Events");
+            }
         }
 
         // POST: Events/Create

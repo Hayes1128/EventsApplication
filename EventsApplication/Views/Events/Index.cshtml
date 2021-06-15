@@ -1,11 +1,22 @@
 ﻿@model EventsApplication.Models.EventTypeViewModel
+@using Microsoft.AspNetCore.Identity
+@using EventsApplication.Areas.Identity.Data
+
+@inject UserManager<EventsApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
 }
 <div class="row">
     <div class="col-10 TitleHeading"> <h1>Upcoming Events</h1> </div>
-    <div class="col-2"><p><a asp-action="Create">Create New</a></p></div>
+    @{ 
+        var user = await UserManager.GetUserAsync(User);
+        if(user.UserType == "Admin")
+            {
+                <div class="col-2"><p><a asp-action="Create">Create New</a></p></div>
+            }
+    }
+    
 </div>
 <br />
 <form asp-controller="Events" asp-action="Index" method="get">
@@ -25,33 +36,33 @@
 <div class="container">
     @foreach (var item in Model.Events)
     {
-    <div class="row">
-        <div class="col-3">
-            
-            @{string url = item.filename;}
-            <img src="~/css/Images/@url" alt="Alternate Text" width="200" height="200"/>
-        </div>
-        
-        
-        <div class="col-7">
-            <p>Type: @item.Type</p>
-            <p>Owner: @item.Owner</p>
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-            
-        </div>
-        <div class="col-1">
-            Date:
-            @Html.DisplayFor(modelItem => item.ReleaseDate)
-            Price: £@Html.DisplayFor(modelItem => item.Price)
+        <div class="row">
+            <div class="col-3">
+
+                @{string url = item.filename;}
+                <img src="~/css/Images/@url" alt="Alternate Text" width="200" height="200" />
+            </div>
+
+
+            <div class="col-7">
+                <p>Type: @item.Type</p>
+                <p>Owner: @item.Owner</p>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+
+            </div>
+            <div class="col-1">
+                Date:
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+                Price: £@Html.DisplayFor(modelItem => item.Price)
+
+            </div>
+            <div class="col-1">
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </div>
 
         </div>
-        <div class="col-1">
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-        </div>
-
-    </div>
-    <br />
+        <br />
     }
 </div>
