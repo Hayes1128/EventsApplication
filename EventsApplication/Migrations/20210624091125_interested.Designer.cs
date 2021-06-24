@@ -4,14 +4,16 @@ using EventsApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventsApplication.Migrations
 {
     [DbContext(typeof(EventsApplicationContext))]
-    partial class EventsApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210624091125_interested")]
+    partial class interested
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,24 +52,6 @@ namespace EventsApplication.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Event");
-                });
-
-            modelBuilder.Entity("EventsApplication.Models.InterestedUserEvents", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InterestedUserEvents");
                 });
 #pragma warning restore 612, 618
         }

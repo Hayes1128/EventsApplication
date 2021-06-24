@@ -1,0 +1,45 @@
+﻿@model EventsApplication.Models.EventTypeViewModel
+@using Microsoft.AspNetCore.Identity
+@using EventsApplication.Areas.Identity.Data
+
+@inject UserManager<EventsApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Interested Events";
+}
+
+<form asp-controller="Interested_Events" asp-action="Index" method="get">
+    
+</form>
+<br />
+
+<div class="container">
+    @foreach (var item in Model.Events)
+    {
+        <div class="row">
+            <div class="col-3">
+
+                @{string url = item.filename;}
+                <img src="~/css/Images/@url" alt="Alternate Text" width="200" height="200" />
+            </div>
+
+
+            <div class="col-7">
+                <p>Type: @item.Type</p>
+                <p>Owner: @item.Owner</p>
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+
+            </div>
+            <div class="col-1">
+                Date:
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+                Price: £@Html.DisplayFor(modelItem => item.Price)
+
+            </div>
+            
+            
+
+        </div>
+        <br />
+    }
+</div>

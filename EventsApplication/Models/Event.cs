@@ -1,4 +1,7 @@
-﻿using System;
+﻿using EventsApplication.Areas.Identity.Data;
+using EventsApplication.Data;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace EventsApplication.Models
 {
+    
     public class Event
     {
-
+        
+        
+        
         public int Id { get; set; }
         public string Title { get; set; }
 
@@ -22,7 +28,13 @@ namespace EventsApplication.Models
         //if it is a person/band/artist etc.
         public string Owner { get; set; }
 
-        public string filename { get; set; } 
+        public string filename { get; set; }
+
+
+        
+        
+
+        
 
 
     }

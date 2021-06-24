@@ -15,5 +15,9 @@ namespace EventsApplication.Data
         }
 
         public DbSet<EventsApplication.Models.Event> Event { get; set; }
+
+        public DbSet<EventsApplication.Models.InterestedUserEvents> InterestedUserEvents { get; set; }
+
+
     }
 }

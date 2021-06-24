@@ -72,8 +72,29 @@ namespace EventsApplication.Controllers
                 return NotFound();
             }
 
+            
+
             var @event = await _context.Event
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            
+            
+            var user = await _userManager.GetUserAsync(User);
+            //we have got event and user so need to add entry in interested event database
+            InterestedUserEvents IntUseEvent = new InterestedUserEvents
+            {
+                EventId = @event.Id,
+                UserId = user.Id
+
+            };
+
+            _context.InterestedUserEvents.Add(IntUseEvent);
+
+            
+            
+
+            await _context.SaveChangesAsync();
+
             if (@event == null)
             {
                 return NotFound();
@@ -108,6 +129,7 @@ namespace EventsApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 _context.Add(@event);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -118,17 +140,28 @@ namespace EventsApplication.Controllers
         // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            var user = await _userManager.GetUserAsync(User);
+            string Type = user.UserType;
+            if (Type == "Admin")
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var @event = await _context.Event.FindAsync(id);
-            if (@event == null)
-            {
-                return NotFound();
+                var @event = await _context.Event.FindAsync(id);
+                if (@event == null)
+                {
+                    return NotFound();
+                }
+                return View(@event);
             }
-            return View(@event);
+            else
+            {
+
+                return Redirect("/Events");
+            }
+           
         }
 
         // POST: Events/Edit/5
@@ -169,19 +202,30 @@ namespace EventsApplication.Controllers
         // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            var user = await _userManager.GetUserAsync(User);
+            string Type = user.UserType;
+            if (Type == "Admin")
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var @event = await _context.Event
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (@event == null)
+                var @event = await _context.Event
+                    .FirstOrDefaultAsync(m => m.Id == id);
+                if (@event == null)
+                {
+                    return NotFound();
+                }
+
+                return View(@event);
+            }
+            else
             {
-                return NotFound();
-            }
 
-            return View(@event);
+                return Redirect("/Events");
+            }
+            
         }
 
         // POST: Events/Delete/5

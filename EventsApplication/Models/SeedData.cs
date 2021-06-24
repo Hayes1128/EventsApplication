@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using EventsApplication.Data;
 using System;
 using System.Linq;
+using EventsApplication.Areas.Identity.Data;
 
 namespace EventsApplication.Models
 {
@@ -29,7 +30,8 @@ namespace EventsApplication.Models
                         Description = "This is a music concert etc, more information provided soon",
                         Price = 7.99M,
                         Owner = "Some Band",
-                        filename = "Queen.jpg"
+                        filename = "Queen.jpg",
+                        
 
                     },
 
@@ -41,7 +43,8 @@ namespace EventsApplication.Models
                         Description = "This is an art exhibition etc, more information provided soon",
                         Price = 11.99M,
                         Owner = "Some Artist",
-                        filename = "Art.jpg"
+                        filename = "Art.jpg",
+                        
                     },
 
                     new Event
@@ -52,7 +55,8 @@ namespace EventsApplication.Models
                         Description = "This is a food festival etc, more information provided soon",
                         Price = 23.99M,
                         Owner = "Some Company or chef",
-                        filename = "Food.jpg"
+                        filename = "Food.jpg",
+                        
                     },
 
                     new Event
@@ -63,9 +67,10 @@ namespace EventsApplication.Models
                         Description = "This is an academic lecture etc, more information provided soon",
                         Price = 0.00M,
                         Owner = "Some Scientist",
-                        filename = "Lecture.jpg"
+                        filename = "Lecture.jpg",
+                        
                     }
-                );
+                ) ;
                 context.SaveChanges();
             }
         }
